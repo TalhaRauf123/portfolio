@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammad Talha Rauf: Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3EEE4;
+    --paper-2:#FFFFFF;
+    --panel:#EAE2D3;
+    --line:#D9CEB9;
+    --ink:#211D18;
+    --ink-dim:#6E6659;
+    --rust:#C1573B;
+    --rust-dim:#E8B9A9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Times New Roman', Times, serif;
+    line-height:1.6;
+  }
+  .display{font-family:'Bebas Neue', sans-serif; letter-spacing:1px;}
+  a{color:inherit;}
+  .wrap{max-width:1040px; margin:0 auto; padding:0 32px;}
+
+  /* scroll reveal */
+  .reveal{opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---- NAV ---- */
+  .tabnav{
+    position:sticky; top:0; z-index:30;
+    background:rgba(243,238,228,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .tabnav .wrap{display:flex; justify-content:space-between; align-items:center; height:58px;}
+  .tabnav .mark{display:flex; align-items:center; gap:10px; font-size:14px; color:var(--ink-dim); font-family:Arial, sans-serif;}
+  .tabnav .mark .sq{width:9px; height:9px; background:var(--rust); transform:rotate(45deg);}
+  .tabnav ul{list-style:none; display:flex; gap:6px;}
+  .tabnav a{
+    font-size:12px; letter-spacing:0.08em; text-transform:uppercase; font-family:Arial, sans-serif;
+    color:var(--ink-dim); text-decoration:none; padding:8px 16px; border-radius:99px;
+    transition:all .2s;
+  }
+  .tabnav a:hover{color:var(--ink);}
+  .tabnav a.active{background:var(--rust); color:#FFF6EF; font-weight:600;}
+
+  /* ---- COVER ---- */
+  .cover{
+    min-height:92vh; display:flex; flex-direction:column; justify-content:center; position:relative; overflow:hidden;
+  }
+  .cover .ring{
+    position:absolute; top:-120px; right:-120px; width:520px; height:520px; border-radius:50%;
+    background:var(--rust); opacity:0.14;
+  }
+  .cover .ring.two{top:auto; bottom:-160px; right:auto; left:-160px; width:380px; height:380px; opacity:0.1;}
+  .cover .wrap{position:relative; z-index:2; width:100%;}
+  .eyebrow{
+    display:flex; align-items:center; gap:10px; font-size:12.5px; letter-spacing:0.14em; color:var(--rust);
+    text-transform:uppercase; margin-bottom:26px; font-family:Arial, sans-serif;
+  }
+  .eyebrow .blink{width:7px; height:7px; border-radius:50%; background:var(--rust);}
+
+  .cover h1{
+    font-size:clamp(60px, 12vw, 138px);
+    line-height:0.86;
+    color:var(--ink);
+  }
+  .cover h1 .accent{color:var(--rust);}
+  .cover .role{
+    margin-top:22px; font-size:18px; color:var(--ink-dim); max-width:480px;
+  }
+  .menu{margin-top:48px; display:flex; flex-direction:column; gap:2px; max-width:280px;}
+  .menu a{
+    display:flex; justify-content:space-between; align-items:center;
+    text-decoration:none; color:var(--ink); font-size:14px; letter-spacing:0.06em; text-transform:uppercase;
+    padding:13px 4px; border-bottom:1px solid var(--line); font-family:Arial, sans-serif;
+    transition:padding-left .2s, color .2s;
+  }
+  .menu a:hover{padding-left:12px; color:var(--rust);}
+  .menu a span.n{color:var(--ink-dim); font-size:12px;}
+
+  /* ---- SECTION ---- */
+  .panel{padding:90px 0;}
+  .kicker{display:flex; align-items:center; gap:14px; margin-bottom:12px; font-family:Arial, sans-serif;}
+  .kicker .no{font-family:'Bebas Neue'; color:var(--rust); font-size:15px; letter-spacing:2px;}
+  .kicker .lbl{font-size:11.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-dim);}
+  .panel h2{font-family:'Bebas Neue'; font-size:44px; letter-spacing:1px; margin-bottom:36px;}
+
+  /* ---- ABOUT ---- */
+  .about-grid{display:grid; grid-template-columns:1fr 1.15fr; gap:56px;}
+  .about-grid p{color:var(--ink-dim); font-size:17px; margin-bottom:16px;}
+  .about-grid p strong{color:var(--ink); font-weight:bold;}
+
+  .skills-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; font-family:Arial, sans-serif;}
+  .skill-chip{
+    display:flex; align-items:center; gap:8px;
+    border:1px solid var(--line); border-radius:8px; padding:9px 14px;
+    font-size:13px; background:var(--paper-2);
+  }
+  .skill-chip .dot{width:7px; height:7px; border-radius:50%; background:var(--rust);}
+  .skill-chip.dev .dot{background:var(--ink);}
+
+  .stat-cols{display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:8px;}
+  .stat-cols h4{font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--rust); margin-bottom:14px; font-family:Arial, sans-serif;}
+  .stat-item{margin-bottom:16px; border-left:2px solid var(--line); padding-left:14px;}
+  .stat-item .t{font-size:16px; font-weight:bold;}
+  .stat-item .s{font-size:13.5px; color:var(--ink-dim); margin-top:2px;}
+
+  .bars{margin-top:30px; font-family:Arial, sans-serif;}
+  .bar-row{margin-bottom:16px;}
+  .bar-row .lbl-row{display:flex; justify-content:space-between; font-size:12.5px; margin-bottom:6px; color:var(--ink-dim);}
+  .bar-track{height:5px; background:var(--line); border-radius:3px; overflow:hidden;}
+  .bar-fill{height:100%; background:var(--rust); transform:scaleX(0); transform-origin:left; transition:transform 1s ease;}
+  .bar-row.in .bar-fill{transform:scaleX(1);}
+
+  /* ---- PROJECT BLOCKS ---- */
+  .proj-block{border-top:1px solid var(--line); padding:44px 0;}
+  .proj-block:first-of-type{border-top:none;}
+  .proj-head{display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:10px; margin-bottom:16px;}
+  .proj-head h3{font-family:'Bebas Neue'; font-size:34px; letter-spacing:0.5px;}
+  .proj-head .kind{font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-dim); font-family:Arial, sans-serif;}
+  .proj-block p.desc{color:var(--ink-dim); font-size:16.5px; max-width:660px; margin-bottom:18px;}
+
+  .shots{display:flex; gap:14px; overflow-x:auto; padding-bottom:6px; margin-bottom:18px;}
+  .shots img{
+    height:340px; width:auto; max-width:80vw; object-fit:contain;
+    background:#0B0B0B; border-radius:10px; border:1px solid var(--line);
+    flex-shrink:0;
+  }
+  .shots .placeholder-shot{
+    height:340px; width:220px; flex-shrink:0; border-radius:10px; border:1px dashed var(--line);
+    display:flex; align-items:center; justify-content:center; text-align:center; padding:16px;
+    font-size:12px; color:var(--ink-dim); font-family:Arial, sans-serif; background:var(--panel);
+  }
+
+  .stack{margin-bottom:18px; font-family:Arial, sans-serif;}
+  .stack-group{margin-bottom:10px;}
+  .stack-group .glabel{font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--rust); margin-bottom:7px; font-weight:bold;}
+  .stack-group .gitems{display:flex; flex-wrap:wrap; gap:8px;}
+  .stack span{font-size:11.5px; border:1px solid var(--line); padding:5px 11px; border-radius:99px; color:var(--ink-dim); background:var(--paper-2);}
+
+  .actions{display:flex; gap:10px; flex-wrap:wrap; font-family:Arial, sans-serif;}
+  .btn{
+    display:inline-flex; align-items:center; gap:7px; font-size:12.5px; font-weight:600; letter-spacing:0.03em;
+    text-decoration:none; padding:10px 18px; border-radius:99px; border:1px solid var(--ink);
+    transition:all .2s;
+  }
+  .btn.primary{background:var(--ink); color:var(--paper); }
+  .btn.primary:hover{background:var(--rust); border-color:var(--rust);}
+  .btn.ghost{color:var(--ink);}
+  .btn.ghost:hover{background:var(--panel);}
+  .btn.disabled{opacity:0.4; pointer-events:none;}
+
+  /* ---- OUTRO ---- */
+  .outro{
+    background:var(--ink); color:var(--paper);
+    padding:100px 0 60px;
+  }
+  .outro .kicker .lbl{color:#C9C1B2;}
+  .outro-top{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:30px; margin-bottom:56px;}
+  .outro-top .lead{font-size:17px; color:#C9C1B2; max-width:360px;}
+  .thanks{font-family:'Bebas Neue'; font-size:clamp(56px,9vw,108px); line-height:0.9; color:var(--paper);}
+  .thanks .accent{color:var(--rust);}
+
+  .contact-list{display:flex; flex-direction:column; gap:0; border-top:1px solid #3A342A; max-width:560px; font-family:Arial, sans-serif;}
+  .contact-list a, .contact-list .row{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:16px 2px; border-bottom:1px solid #3A342A;
+    text-decoration:none; color:var(--paper); font-size:15px;
+  }
+  .contact-list .row .k{color:#8A8171; font-size:12px; letter-spacing:0.1em; text-transform:uppercase;}
+  .contact-list a:hover{color:var(--rust);}
+  .contact-list a .arrow{color:#8A8171; font-size:13px;}
+  .contact-list a:hover .arrow{color:var(--rust);}
+
+  footer{padding:22px 0; text-align:center; font-size:12px; color:#8A8171; background:var(--ink); font-family:Arial, sans-serif;}
+
+  @media (max-width:760px){
+    .about-grid{grid-template-columns:1fr;}
+    .stat-cols{grid-template-columns:1fr;}
+    .tabnav ul{gap:0;}
+    .tabnav a{padding:8px 10px;}
+    .outro-top{flex-direction:column; align-items:flex-start;}
+    .shots img, .shots .placeholder-shot{height:260px;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="tabnav">
+  <div class="wrap">
+    <div class="mark"><span class="sq"></span> MUHAMMAD TALHA RAUF</div>
+    <ul>
+      <li><a href="#about" class="active">Profile</a></li>
+      <li><a href="#work">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="cover">
+  <div class="ring"></div>
+  <div class="ring two"></div>
+  <div class="wrap">
+    <div class="eyebrow"><span class="blink"></span> AVAILABLE FOR WORK, 2026</div>
+    <h1 class="display">MUHAMMAD<br>TALHA <span class="accent">RAUF</span></h1>
+    <p class="role">Computer Systems Engineering graduate from Bahawalpur. I build full-stack apps, brand storefronts, and the design and marketing around them.</p>
+    <div class="menu">
+      <a href="#about"><span>Profile</span><span class="n">01</span></a>
+      <a href="#work"><span>Projects</span><span class="n">02</span></a>
+      <a href="#contact"><span>Contact</span><span class="n">03</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="about">
+  <div class="wrap">
+    <div class="kicker reveal"><span class="no display">01</span><span class="lbl">Profile</span></div>
+    <h2 class="reveal">About Me</h2>
+
+    <div class="about-grid">
+      <div class="reveal">
+        <p><strong>Hi, I'm Talha.</strong> I'm a Computer Systems Engineering graduate based in Bahawalpur, Pakistan. I have basic-level skills in graphic design and video editing, plus social media marketing, and I picked up full-stack development on top of that.</p>
+        <p>Most of what I build now is "vibe-coded": I design the product, then build it out in Python and JavaScript, shipping real apps instead of just mockups. I've taken two apps and a storefront from a blank folder all the way to deployed and running.</p>
+
+        <div class="skills-row">
+          <div class="skill-chip dev"><span class="dot"></span>Full-Stack App &amp; Web Development</div>
+        </div>
+        <div class="kicker" style="margin-top:16px; margin-bottom:8px;"><span class="lbl">Soft Skills</span></div>
+        <div class="skills-row">
+          <div class="skill-chip"><span class="dot"></span>Graphic Design (Basic)</div>
+          <div class="skill-chip"><span class="dot"></span>Video Editing (Basic)</div>
+          <div class="skill-chip"><span class="dot"></span>Social Media Marketing</div>
+        </div>
+
+        <div class="bars">
+          <div class="bar-row reveal"><div class="lbl-row"><span>Full Stack Development</span><span>Working proficiency</span></div><div class="bar-track"><div class="bar-fill" style="width:75%"></div></div></div>
+          <div class="bar-row reveal"><div class="lbl-row"><span>Graphic Design / Video Editing</span><span>Basic</span></div><div class="bar-track"><div class="bar-fill" style="width:40%"></div></div></div>
+          <div class="bar-row reveal"><div class="lbl-row"><span>Social Media Marketing</span><span>Basic</span></div><div class="bar-track"><div class="bar-fill" style="width:40%"></div></div></div>
+        </div>
+      </div>
+
+      <div class="stat-cols reveal">
+        <div>
+          <h4>Education</h4>
+          <div class="stat-item"><div class="t">BSc Computer Systems Engineering</div><div class="s">Bachelor's</div></div>
+          <div class="stat-item"><div class="t">Intermediate, ICS</div><div class="s">Pre Engineering / Computer Science</div></div>
+          <div class="stat-item"><div class="t">Matriculation</div><div class="s">Science</div></div>
+        </div>
+        <div>
+          <h4>Experience</h4>
+          <div class="stat-item"><div class="t">Intern, Enlevin AI Solution</div><div class="s">4 months, mixed tasks, scope shifted month to month</div></div>
+          <div class="stat-item"><div class="t">Founder, Scoop Station</div><div class="s">Built and ran an e-commerce supplement brand</div></div>
+          <div class="stat-item"><div class="t">Independent Builder</div><div class="s">Two full stack apps shipped end to end, solo</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="work">
+  <div class="wrap">
+    <div class="kicker reveal"><span class="no display">02</span><span class="lbl">Selected Work</span></div>
+    <h2 class="reveal">Projects</h2>
+
+    <!-- Book Doc -->
+    <div class="proj-block reveal">
+      <div class="proj-head"><h3>Book Doc</h3><span class="kind">Web + Android</span></div>
+      <p class="desc">A clinic queue and appointment app. Patients search for a doctor, book a token for a time slot, and track a live queue in real time; doctors run the queue and manage their weekly availability from their own dashboard.</p>
+      <div class="shots">
+        <img src="img/book-doc-login.jpg" alt="Book Doc login screen">
+        <img src="img/book-doc-find.jpg" alt="Book Doc find a doctor screen">
+        <img src="img/book-doc-booktoken.jpg" alt="Book Doc select date and time screen">
+        <img src="img/book-doc-confirmed.jpg" alt="Book Doc booking confirmed and live queue status">
+        <img src="img/book-doc-appointments.jpg" alt="Book Doc my appointments screen">
+        <img src="img/book-doc-queue.jpg" alt="Book Doc doctor queue dashboard">
+      </div>
+      <div class="stack">
+        <div class="stack-group">
+          <div class="glabel">Backend</div>
+          <div class="gitems"><span>Node.js</span><span>Express</span><span>MySQL</span><span>Sequelize</span><span>Socket.io</span><span>JWT</span><span>bcryptjs</span><span>Multer</span><span>Cloudinary</span><span>express-rate-limit</span></div>
+        </div>
+        <div class="stack-group">
+          <div class="glabel">Frontend</div>
+          <div class="gitems"><span>React</span><span>Vite</span><span>React Router</span><span>Tailwind CSS</span><span>Axios</span><span>Socket.io-client</span></div>
+        </div>
+        <div class="stack-group">
+          <div class="glabel">Mobile</div>
+          <div class="gitems"><span>Capacitor (Android APK)</span></div>
+        </div>
+        <div class="stack-group">
+          <div class="glabel">Deployment</div>
+          <div class="gitems"><span>Railway (backend + MySQL)</span><span>GitHub</span><span>Cloudinary</span><span>UptimeRobot</span></div>
+        </div>
+      </div>
+      <div class="actions">
+        <span class="kind">Screenshots above. Deployed on Railway, repo private.</span>
+      </div>
+    </div>
+
+    <!-- Track It -->
+    <div class="proj-block reveal">
+      <div class="proj-head"><h3>Track It</h3><span class="kind">Android</span></div>
+      <p class="desc">A habit tracking app with a gym lift tracker, a photo verification alarm so you can't fake a wake up, and a social circle with chat to keep streaks with friends.</p>
+      <div class="shots">
+        <img src="img/track-it-login.jpg" alt="Track It login and branding screen">
+        <img src="img/track-it-home.jpg" alt="Track It app home screen">
+        <img src="img/track-it-habits.jpg" alt="Track It habits screen">
+        <img src="img/track-it-gym.jpg" alt="Track It gym progress screen">
+        <img src="img/track-it-alarm.jpg" alt="Track It alarm setup screen">
+        <img src="img/track-it-chat.jpg" alt="Track It friend chat screen">
+      </div>
+      <div class="stack">
+        <div class="stack-group">
+          <div class="glabel">Backend</div>
+          <div class="gitems"><span>FastAPI (Python)</span><span>PostgreSQL</span><span>SQLAlchemy</span><span>python-jose (JWT)</span><span>passlib + bcrypt</span><span>Pillow + ImageHash</span><span>Cloudinary</span></div>
+        </div>
+        <div class="stack-group">
+          <div class="glabel">Frontend</div>
+          <div class="gitems"><span>React</span><span>Vite</span><span>React Router</span><span>Axios</span><span>Framer Motion</span><span>Recharts</span><span>Lucide React</span></div>
+        </div>
+        <div class="stack-group">
+          <div class="glabel">Mobile</div>
+          <div class="gitems"><span>Capacitor</span><span>Custom Native Java (alarm scheduling, foreground service)</span></div>
+        </div>
+        <div class="stack-group">
+          <div class="glabel">Deployment</div>
+          <div class="gitems"><span>Railway (backend + Postgres)</span><span>Cloudinary</span><span>UptimeRobot</span><span>GitHub</span></div>
+        </div>
+      </div>
+      <div class="actions">
+        <span class="kind">Screenshots above. Deployed on Railway, repo private.</span>
+      </div>
+    </div>
+
+    <!-- Scoop Station -->
+    <div class="proj-block reveal">
+      <div class="proj-head"><h3>Scoop Station</h3><span class="kind">Web</span></div>
+      <p class="desc">An e-commerce storefront for my own supplement brand. Protein and creatine sold by the scoop, no full tubs, no waste. Built, deployed, and marketed end to end, from the site itself to running its social presence.</p>
+      <div class="shots">
+        <img src="img/scoop-hero.jpg" alt="Scoop Station homepage">
+        <img src="img/scoop-products.jpg" alt="Scoop Station product listing">
+        <img src="img/scoop-address.jpg" alt="Scoop Station delivery address screen">
+      </div>
+      <div class="stack">
+        <div class="stack-group">
+          <div class="glabel">Frontend</div>
+          <div class="gitems"><span>Next.js 16</span><span>React 19</span><span>TypeScript</span><span>CSS Modules</span></div>
+        </div>
+        <div class="stack-group">
+          <div class="glabel">Data</div>
+          <div class="gitems"><span>localStorage (current)</span><span>PostgreSQL on Railway (migrating)</span></div>
+        </div>
+        <div class="stack-group">
+          <div class="glabel">Deployment</div>
+          <div class="gitems"><span>Vercel</span><span>Railway</span><span>GitHub</span></div>
+        </div>
+      </div>
+      <div class="actions">
+        <a href="https://scoop-station.vercel.app/" target="_blank" class="btn primary">Visit Website</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="outro" id="contact">
+  <div class="wrap">
+    <div class="kicker reveal"><span class="no display">03</span><span class="lbl">Get In Touch</span></div>
+    <div class="outro-top">
+      <div class="thanks reveal">LET'S<br>BUILD<span class="accent">.</span></div>
+    </div>
+
+    <div class="contact-list reveal">
+      <a href="mailto:trauf3372@gmail.com"><span>trauf3372@gmail.com</span><span class="arrow">Email &#8594;</span></a>
+      <a href="tel:+923216353389"><span>+92 321 6353389</span><span class="arrow">Call &#8594;</span></a>
+      <div class="row"><span>Bahawalpur, Punjab, Pakistan</span><span class="k">Location</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>Muhammad Talha Rauf. Portfolio 2026</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.tabnav a');
+  const sections = ['about','work','contact'].map(id => document.getElementById(id));
+  window.addEventListener('scroll', () => {
+    let current = sections[0].id;
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+    tabs.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
